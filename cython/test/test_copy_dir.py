@@ -1,15 +1,17 @@
 import os
 import sys
 from pathlib import Path
-from pprint import pprint
-pprint({"sys.path": sys.path})
+import json
+try:
+    from unknownlib import *
+except ModuleNotFoundError as e:
+    print(json.dumps({"sys.path": sys.path}, indent=4))
+    raise e
 
 
 if __name__ == "__main__":
 
-    from unknownlib import *
     print_tree(Path(__file__).parents[2])
-
     print_tree(os.getenv("TEST_SRCDIR"))
     print_tree(os.getenv("TEST_TMPDIR"))
     input_dir = Path(__file__).parent / "tmp"
