@@ -12,7 +12,7 @@ logging.basicConfig(level=logging.INFO, format="%(funcName)s: %(message)s")
 
 def copy_dir(src_dir: Union[str, Path],
              dst_dir: Union[str, Path],
-             patterns: List[Union[str, Path]]=["**"]):
+             patterns: List[Union[str, Path]]=["**"]) -> None:
     """ Copy a directory recursively.
     Filter for `patterns`.
     """
@@ -28,13 +28,13 @@ def copy_dir(src_dir: Union[str, Path],
     logging.info("done.")
         
         
-def print_tree(dir_):
+def print_tree(dir_: Union[str, Path]) -> None:
     assert os.path.isdir(str(dir_)), f"{dir_} is not a directory"
     s = os.popen(f"cd {dir_}; tree").read()
     logging.info(f"""{dir_}\n{s}""")
 
 
-def directories_identical(dir1, dir2):
+def directories_identical(dir1: Union[str, Path], dir2: Union[str, Path]) -> bool:
     cmp_result = filecmp.dircmp(dir1, dir2)
     if len(cmp_result.left_only) > 0 or len(cmp_result.right_only) > 0:
         logging.info(cmp_result)
